@@ -85,12 +85,88 @@ int main(){
 ```
 
 ### 예제3) 숫자 카드 게임
+문제: 여러개의 숫자 카드 중 가장 높은 숫자가 쓰인 카드 한장을 뽑는 문제. 뽑고자 하는 카드가 포함되어 있는 행을 선택하여 선택한 행에 포함되어 있는 카드들 중 숫자가 가장 낮은 카드를 뽑아야 한다. 
+<br />
+해설: 각 행마다 가장 작은 수를 찾은 뒤 이 수들 중 가장 큰 수
 
+``` c++
+#include <iostream>
+#include <vector>
+#include <algorithm>
 
+using namespace std;
 
+int main(){
+    int n, m;
+    vector<vector<int>> card;
+    vector<int> v;
+    
+    cin >> n >> m;
+    
+    for(int i = 0; i< n; i++){
+        card.push_back(v);
+    }
+    
+    for(int i = 0; i< n; i++){
+        for(int j = 0; j < m; j++){
+            int a;
+            
+            cin >> a;
+            
+            card[i].push_back(a);
+        }
+    }
+    
+    int max = 0;
+    
+    for(int i = 0; i < n; i++){
+        sort(card[i].begin(), card[i].end());
+        if(max < card[i][0]){
+            max = card[i][0];
+        }
+    }
+    
+    cout << max;
+    
+}
+```
 
+### 예제4) 1이 될 때까지
+문제: 어떤 수 n이 1이 될 때까지 두 과정 중 하나를 반복적으로 선택하여 수행하려 할 때 1번 혹은 2번의 과정을 수행해야 하는 최소 횟수
+1. N에서 1을 뺀다.
+2. N을 K로 나눈다. (N이 K로 나누어 떨어질 때만 선택 가능)
+<br />
+해설: '최대한 많이 나누기를 수행하도록 한다.' N이 K의 배수가 될 때까지 1씩 빼고 N을 K로 나누는 횟수를 구하여 해결한다.
+``` c++
+#include <iostream>
 
+using namespace std;
 
+int main(){
+    int n, k, cnt = 0;
+    
+    cin >> n >> k;
+    
+    while(n != 1){
+        if(n >= k){
+            cnt += (n%k);
+            n -= (n %k);
+        }else{
+            cnt += (n % k - 1);
+            break;
+        }
+        
+        
+        if(n >= k){
+            n /= k;
+            cnt ++;
+        }
+    }
+    
+    cout << cnt;
+}
+
+```
 
 
 
