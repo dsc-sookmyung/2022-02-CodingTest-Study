@@ -111,3 +111,57 @@ for i in range(n):
 
 print(result)
 ```
+
+### 실전 3 - 1이 될 때까지
+
+- **문제**: 어떠한 수 N이 1이 될 때까지 다음의 두 과정 중 하나를 반복적으로 수행하려고 한다. 수행해야 하는 최소 횟수는?
+    1. N에서 1 빼기
+    2. N을 K로 나누기 (나누어 떨어질 때만)
+    - 조건: 2 ≤ n ≤ k ≤ 100,000
+- **풀이**: N이 K로 나누어 떨어질 때까지 1을 빼기(1번) → N을 K로 나누기(2번) → …
+- **비고**: N이 클 수록 K로 나눴을 때 더 많이 감소 ⇒ K로 최대한 많이 나눌 수 있는 것이 최적의 해를 보장
+
+```python
+n, k = map(int, input().split())
+result =  0
+
+# n이 k 이상이라면 반복 수행
+while n >= k:
+  # n이 나누어 떨어질 때까지 1을 빼기 (1번)
+  while n % k != 0:
+    n -= 1
+    result += 1
+  # n을 k로 나누기(2번)
+  n //= k
+  result += 1
+
+# n이 k 미만이 되면 n=1이 될 때까지 1을 빼기
+while n > 1:
+  n -= 1
+  result += 1
+
+print(result)
+```
+
+- **풀이 2**: 1씩 빼지 않고, N이 K로 나누어 떨어지는 수가 되도록 효율적으로 한번에 빼는 방법
+
+```python
+n, k = map(int, input().split())
+result =  0
+
+while True:
+  # n이 k로 나누어 떨어지는 수가 될 때까지 1을 빼기 (1번)
+  target = (n // k) * k # (n을 k로 나눈 몫) * k
+  result += (n - target)
+  n = target
+  # n이 k보다 작아지면(나눌 수 없을 때) 반복문 탈출
+  if n < k:
+    break
+  # n을 k로 나누기(2번)
+  n //= k
+  result += 1
+
+# n이 k 미만이 되면 n=1이 될 때까지 1을 빼기
+result += (n - 1)
+print(result)
+```
