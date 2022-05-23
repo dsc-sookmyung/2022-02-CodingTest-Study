@@ -1,3 +1,7 @@
+//문제: 회전판에 먹어야 할 N개의 음식이 있고 K초 후에 몇 번 음식 부터 먹으면 되는지 반환하는 문제
+//1번 음식부터 음식번호가 증가하는 순서대로 음식을 먹는다. 마지막 번호 후에는 1번 음식을 먹는다.
+
+
 #include <string>
 #include <vector>
 #include <algorithm>
@@ -9,6 +13,7 @@ int solution(vector<int> food_times, long long k) {
     int answer = 0;
     
     priority_queue<pair<int, int>> priority_food_times;
+    
     
     long long sum = 0;
     long long before = 0;
