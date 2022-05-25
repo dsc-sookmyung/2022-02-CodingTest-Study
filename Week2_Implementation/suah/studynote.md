@@ -36,5 +36,106 @@
 
 ### 예제 4-1번 - 상하좌우
 ```python
+n = int(input())
+x, y = 1, 1
+plans = input().split()
 
+dx = [0, 0, -1, 1]
+dy = [-1, 1, 0, 0]
+move_types = ['L', 'R', 'U', 'D']
+
+for plan in plans:
+    for i in range(len(move_types)):
+        if plan == move_types[i]:
+            nx = x + dx[i]
+            ny = y + dy[i]
+    if nx < 1 or ny < 1 or nx > n or ny > n:
+        continue
+    x, y = nx, ny
+
+print(x, y)
+```
+
+### 예제 4-2번 - 시각
+```python
+n = int(input())
+answer = 0
+
+for h in range(n + 1):
+    for m in range(60):
+        for s in range(60):
+            if '3' in str(h) + str(m) + str(s):
+                answer += 1
+
+print(answer)
+```
+
+### 실전문제 - 왕실의 나이트 
+```python 
+now = input()
+y = int(now[1])
+x = ord(now[0]) - 96
+count = 0
+
+dx = [+1, +1, -1, -1, +2, +2, -2, -2]
+dy = [+2, -2, +2, -2, -1, +1, -1, +1]
+# steps = [(-2, -1), (-1, -2), (1, -2), (2, -1), (2, 1), (1, 2), (-1, 2), (-2, 1)]
+
+for i in range(8):
+    nx = x + dx[i]
+    ny = y + dy[i]
+    if 1 <= nx <= 8 and 1 <= ny <= 8:
+        count += 1
+
+print(count)
+```
+
+### 실전문제 - 게임 개발 
+```python 
+import sys
+input = lambda : sys.stdin.readline().strip()
+
+n, m = map(int, input().split())
+x, y, d = map(int, input().split())
+matrix = [list(map(int, input().split())) for _ in range(n)]
+
+dx = [-1, 0, 1, 0]
+dy = [0, 1, 0, -1]
+visited = [[0] * m for _ in range(n)]
+visited[x][y] = 1
+
+
+def turn():
+    global d
+    d -= 1
+    if d == -1:
+        d = 3
+
+
+turns = 0
+count = 1
+while True:
+    turn()
+    nx = x + dx[d]
+    ny = y + dy[d]
+    # 해당 위치가 육지이고 방문하지 않았을 경우
+    if matrix[nx][ny] == 0 and visited[nx][ny] == 0:
+        visited[nx][ny] = 1
+        x, y = nx, ny
+        count += 1
+        turns = 0
+        continue
+    else:
+        turns += 1
+
+    if turns == 4:   # 모든 방향으로 다 돌았을 경우
+        nx = x - dx[d]
+        ny = y - dy[d]
+        if matrix[nx][ny] == 0:    # 뒤로 돌아갈 수 있는 경우
+            x, y = nx, ny
+        else:
+            break
+        turns = 0
+
+print(count)
 ```
