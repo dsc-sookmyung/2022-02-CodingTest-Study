@@ -14,8 +14,7 @@ for k in range(1, n+1): #경로 for문이 가장 상위 단계여야 누락되�
             if i == j: #자기 자신으로 오는 경우는 없다고 했으므로
                 bus_cost[i][j] = 0
             else: #경로 거치는 것 or 직접 가는 것 or 이전 경로들
-                bus_cost[i][j] = min(bus_cost[i][j],
-                                     bus_cost[i][k] + bus_cost[k][j])
+                bus_cost[i][j] = min(bus_cost[i][j], bus_cost[i][k] + bus_cost[k][j])
 
 
 #출력
